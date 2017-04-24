@@ -1,5 +1,8 @@
 defmodule Hnet.User do
   use Hnet.Web, :model
+  require EctoEnum
+  EctoEnum.defenum GenderEnum, :gender, [:male, :female]
+  EctoEnum.defenum AccountTypeEnum, :account_type, [:patient, :doctor, :nurse, :administrator]
 
   schema "users" do
     field :first_name, :string
@@ -7,8 +10,8 @@ defmodule Hnet.User do
     field :email, :string
     field :phone, :string
     field :address, :string
-    field :gender, :string
-    field :account_type, :string
+    field :gender, GenderEnum
+    field :account_type, AccountTypeEnum
     field :username, :string
     field :password_hash, :string
 
