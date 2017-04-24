@@ -1,12 +1,12 @@
-defmodule Hnet.Patient do
+defmodule Hnet.Account.Patient do
   use Hnet.Web, :model
 
   schema "patients" do
     field :proof_of_insurance, :string
     field :emergency_contact_name, :string
     field :emergency_contact_phone, :string
-    belongs_to :emergency_contact, Hnet.Patient
-    belongs_to :user, Hnet.User
+    belongs_to :emergency_contact, Hnet.Account.Patient
+    belongs_to :user, Hnet.Account.User
 
     timestamps()
   end

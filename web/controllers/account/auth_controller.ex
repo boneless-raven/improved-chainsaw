@@ -1,4 +1,4 @@
-defmodule Hnet.AuthController do
+defmodule Hnet.Account.AuthController do
   use Hnet.Web, :controller
   alias Hnet.Account.Authentication
 

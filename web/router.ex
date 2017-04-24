@@ -18,11 +18,23 @@ defmodule Hnet.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    resources "/hospitals", HospitalController
+  end
+
+  scope "/", Hnet.Account do
+    pipe_through :browser
+
     get "/login", AuthController, :signin
     post "/login", AuthController, :login
     post "/logout", AuthController, :logout
-    resources "/hospitals", HospitalController
     resources "/users", UserController
+  end
+
+  scope "/registration", Hnet.Account do
+    pipe_through :browser
+
+    get "/patient", RegistrationController, :new_patient
+    post "/patient", RegistrationController, :create_patient
   end
 
   # Other scopes may use custom stacks.

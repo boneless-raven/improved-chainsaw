@@ -1,7 +1,7 @@
-defmodule Hnet.Administrator do
+defmodule Hnet.Account.Nurse do
   use Hnet.Web, :model
 
-  schema "administrators" do
+  schema "nurses" do
     belongs_to :hospital, Hnet.Hospital
     belongs_to :user, Hnet.User
 

@@ -7,7 +7,7 @@ defmodule Hnet.Repo.Migrations.CreatePatient do
       add :emergency_contact_name, :string
       add :emergency_contact_phone, :string
       add :emergency_contact_id, references(:patients, on_delete: :nothing)
-      add :user_id, references(:users, on_delete: :nothing), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end

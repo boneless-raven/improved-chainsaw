@@ -28,7 +28,7 @@ defmodule Hnet.Account.Authentication do
     case get_session(conn, :current_user_id) do
       nil -> nil
       user_id ->
-        Hnet.Repo.get!(Hnet.User, user_id)
+        Hnet.Repo.get!(Hnet.Account.User, user_id)
     end
   end
 

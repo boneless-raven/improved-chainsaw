@@ -19,7 +19,7 @@
             <%= if @current_user do %>
               <li><%= link "Logout", to: auth_path(@conn, :logout), method: :post %></li>
             <%= else %>
-              <li><%= link "Sign Up", to: user_path(@conn, :new) %></li>
+              <li><%= link "Sign Up", to: registration_path(@conn, :new_patient) %></li>
               <li><%= link "Sign In", to: auth_path(@conn, :login) %></li>
             <%= end %>
           </ul>

@@ -1,4 +1,4 @@
-defmodule Hnet.User do
+defmodule Hnet.Account.User do
   use Hnet.Web, :model
   require EctoEnum
   EctoEnum.defenum GenderEnum, :gender, [:male, :female]
@@ -13,9 +13,10 @@ defmodule Hnet.User do
     field :gender, GenderEnum
     field :account_type, AccountTypeEnum
     field :username, :string
+    field :password, :string, virtual: true
     field :password_hash, :string
 
-    has_one :patient, Hnet.Patient
+    has_one :patient, Hnet.Account.Patient
 
     timestamps()
   end
@@ -25,7 +26,7 @@ defmodule Hnet.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:first_name, :last_name, :email, :phone, :address, :gender, :account_type, :username, :password_hash])
-    |> validate_required([:first_name, :last_name, :email, :phone, :address, :gender, :account_type, :username, :password_hash])
+    |> cast(params, [:first_name, :last_name, :email, :phone, :address, :gender, :account_type])
+    |> validate_required([:first_name, :last_name, :email, :phone, :address, :gender, :account_type])
   end
 end

@@ -27,7 +27,6 @@
       <td><%= user.gender %></td>
       <td><%= user.account_type %></td>
       <td><%= user.username %></td>
-      <td><%= user.password_hash %></td>
 
       <td class="text-right">
         <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
