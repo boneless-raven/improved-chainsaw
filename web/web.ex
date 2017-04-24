@@ -51,6 +51,7 @@ defmodule Hnet.Web do
 
       import Hnet.Router.Helpers
       import Hnet.ErrorHelpers
+      import Hnet.FormHelpers
       import Hnet.Gettext
     end
   end
