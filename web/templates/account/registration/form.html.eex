@@ -21,7 +21,7 @@
   <%= form_group u, :password %>
   <%= form_group u, :password_confirmation %>
 
-  <%= render @sub_form, u: u %>
+  <%= render @sub_form, Keyword.put(@opts, :u, u) %>
   
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

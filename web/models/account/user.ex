@@ -17,6 +17,7 @@ defmodule Hnet.Account.User do
     field :password_hash, :string
 
     has_one :patient, Hnet.Account.Patient
+    has_one :administrator, Hnet.Account.Administrator
 
     timestamps()
   end

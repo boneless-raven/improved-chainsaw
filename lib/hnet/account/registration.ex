@@ -32,6 +32,10 @@ defmodule Hnet.Account.Registration do
     |> put_change(:account_type, :patient)
   end
 
+  def new_administrator(user_params \\ %{}) do
+    new_user(user_params)
+  end
+
   defp hash_password(changeset) do
     if changeset.valid? do
       password = get_field(changeset, :password) || ""

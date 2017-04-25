@@ -22,4 +22,14 @@ defmodule Hnet.Account.RegistrationController do
         render conn, "patient.html", changeset: changeset
     end
   end
+
+  def new_administrator(conn, _params) do
+    changeset = Registration.new_administrator()
+    hospitals = Hnet.Repo.all(Hnet.Hospital)
+    render conn, "administrator.html", changeset: changeset, hospitals: hospitals
+  end
+
+  def create_administrator(conn, _params) do
+    
+  end
 end

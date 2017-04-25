@@ -4,7 +4,7 @@ defmodule Hnet.Hospital do
   schema "hospitals" do
     field :name, :string
     field :location, :string
-    field :operational, :boolean, default: false
+    field :operational, :boolean, default: true
 
     timestamps()
   end
