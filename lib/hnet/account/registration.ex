@@ -8,6 +8,8 @@ defmodule Hnet.Account.Registration do
   alias Hnet.Account.Administrator
   alias Hnet.Account.Doctor
   alias Hnet.Account.Nurse
+  
+  alias Hnet.Helpers.Map
 
   @user_fields [:first_name, :last_name, :email, :phone, :address, :gender, :username, :password]
   @patient_fields [:primary_doctor_id, :proof_of_insurance, :emergency_contact_name, :emergency_contact_phone]
@@ -27,7 +29,7 @@ defmodule Hnet.Account.Registration do
   end
 
   def new_patient(user_params \\ %{}) do
-    patient_params = user_params["patient"] || %{}
+    patient_params = Map.retrieve(user_params, :patient) || %{}
 
     patient_changeset = %Patient{}
     |> cast(patient_params, @patient_fields)
@@ -39,7 +41,7 @@ defmodule Hnet.Account.Registration do
   end
 
   def new_administrator(user_params \\ %{}) do
-    admin_params = user_params["administrator"] || %{}
+    admin_params = Map.retrieve(user_params, :administrator) || %{}
 
     admin_changeset = %Administrator{}
     |> cast(admin_params, @admin_fields)
@@ -51,7 +53,7 @@ defmodule Hnet.Account.Registration do
   end
   
   def new_doctor(user_params \\ %{}) do
-    doctor_params = user_params["doctor"] || %{}
+    doctor_params = Map.retrieve(user_params, :doctor) || %{}
 
     doctor_changeset = %Doctor{}
     |> cast(doctor_params, @doctor_fields)
@@ -63,7 +65,7 @@ defmodule Hnet.Account.Registration do
   end
 
   def new_nurse(user_params \\ %{}) do
-    nurse_params = user_params["nurse"] || %{}
+    nurse_params = Map.retrieve(user_params, :nurse) || %{}
 
     nurse_changeset = %Nurse{}
     |> cast(nurse_params, @nurse_fields)
