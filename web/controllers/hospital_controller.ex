@@ -4,6 +4,8 @@ defmodule Hnet.HospitalController do
   alias Hnet.Hospital
   import Ecto.Changeset
 
+  plug Hnet.Account.RestrictAccess, [to: :administrator] when action in [:delete]
+
   def index(conn, _params) do
     hospitals = Repo.all(Hospital)
     render(conn, "index.html", hospitals: hospitals)
