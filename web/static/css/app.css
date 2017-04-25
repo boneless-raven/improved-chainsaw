@@ -1,5 +1,9 @@
 /* This file is for your main application css. */
 
+body {
+  margin-top: 0;
+}
+
 .row-separator {
   height: 20px;
 }

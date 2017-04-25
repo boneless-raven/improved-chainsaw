@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Hello Hnet!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
@@ -13,21 +11,26 @@
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <%= link "HNet", to: page_path(@conn, :index), class: "navbar-brand" %>
+        </div>
+
+          <ul class="nav navbar-nav navbar-right">
             <%= if @current_user do %>
-              <li><%= link "Logout", to: auth_path(@conn, :logout), method: :post %></li>
+              <%= form_for @conn, auth_path(@conn, :logout), [as: :logout, id: "logout-form", hidden: true], fn _ -> %>
+              <%= end %>
+              <li><a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a></li>
             <%= else %>
               <li><%= link "Sign Up", to: registration_path(@conn, :new_patient) %></li>
               <li><%= link "Sign In", to: auth_path(@conn, :login) %></li>
             <%= end %>
           </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+      </div>
+    </nav>
 
+    <div class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
