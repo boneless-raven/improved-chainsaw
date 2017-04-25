@@ -1,16 +1,6 @@
-<h2>Show user</h2>
+<h2><%= Hnet.Account.User.fullname @user %></h2>
 
 <ul>
-
-  <li>
-    <strong>First name:</strong>
-    <%= @user.first_name %>
-  </li>
-
-  <li>
-    <strong>Last name:</strong>
-    <%= @user.last_name %>
-  </li>
 
   <li>
     <strong>Email:</strong>
@@ -42,12 +32,6 @@
     <%= @user.username %>
   </li>
 
-  <li>
-    <strong>Password hash:</strong>
-    <%= @user.password_hash %>
-  </li>
-
 </ul>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
 <%= link "Back", to: user_path(@conn, :index) %>

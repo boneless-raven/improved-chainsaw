@@ -3,10 +3,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Phone</th>
+      <th>Name</th>
       <th>Address</th>
       <th>Gender</th>
       <th>Account type</th>
@@ -18,10 +15,7 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
-      <td><%= user.first_name %></td>
-      <td><%= user.last_name %></td>
-      <td><%= user.email %></td>
-      <td><%= user.phone %></td>
+      <td><%= Hnet.Account.User.fullname user %></td>
       <td><%= user.address %></td>
       <td><%= user.gender %></td>
       <td><%= user.account_type %></td>
