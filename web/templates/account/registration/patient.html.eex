@@ -1,0 +1,7 @@
+<h2>New Patient</h2>
+
+<%= render "form.html", conn: @conn,
+                        changeset: @changeset,
+                        sub_form: "patient_form.html",
+                        opts: [doctor_options: @doctor_options],
+                        action: registration_path(@conn, :create_patient) %>

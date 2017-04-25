@@ -1,0 +1,6 @@
+<h2>New hospital</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: hospital_path(@conn, :create) %>
+
+<%= link "Back", to: hospital_path(@conn, :index) %>

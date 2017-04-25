@@ -1,0 +1,7 @@
+<h2>New Administrator</h2>
+
+<%= render "form.html", conn: @conn,
+                        changeset: @changeset,
+                        sub_form: "administrator_form.html",
+                        opts: [hospitals: @hospitals],
+                        action: registration_path(@conn, :create_administrator) %>

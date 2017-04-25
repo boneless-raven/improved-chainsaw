@@ -1,0 +1,37 @@
+<h2><%= Hnet.Account.User.fullname @user %></h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @user.phone %>
+  </li>
+
+  <li>
+    <strong>Address:</strong>
+    <%= @user.address %>
+  </li>
+
+  <li>
+    <strong>Gender:</strong>
+    <%= @user.gender %>
+  </li>
+
+  <li>
+    <strong>Account type:</strong>
+    <%= @user.account_type %>
+  </li>
+
+  <li>
+    <strong>Username:</strong>
+    <%= @user.username %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: user_path(@conn, :index) %>

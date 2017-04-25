@@ -1,0 +1,33 @@
+<div class="jumbotron">
+  <h2>Administrator Dashboard</h2>
+  <%= greeting @current_user %>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-tasks" aria-hidden="true"></i>
+        <p>System Log</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a href="<%= registration_path(@conn, :index) %>">
+      <button class="iconbutton">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <p>Add Account</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-4">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <p>Messages</p>
+      </button>
+    </a>
+  </div>
+</div>

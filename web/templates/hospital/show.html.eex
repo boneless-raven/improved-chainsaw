@@ -1,0 +1,23 @@
+<h2>Show hospital</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @hospital.name %>
+  </li>
+
+  <li>
+    <strong>Location:</strong>
+    <%= @hospital.location %>
+  </li>
+
+  <li>
+    <strong>Operational:</strong>
+    <%= @hospital.operational %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: hospital_path(@conn, :edit, @hospital) %>
+<%= link "Back", to: hospital_path(@conn, :index) %>

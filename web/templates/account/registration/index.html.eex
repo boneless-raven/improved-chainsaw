@@ -1,0 +1,33 @@
+<div class="jumbotron">
+  <h2>Add Account</h2>
+  <p class="lead">Please select the type of account you wish to add.</p>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= link to: registration_path(@conn, :new_doctor) do %>
+      <button class="iconbutton">
+        <i class="fa fa-user-md" aria-hidden="true"></i>
+        <p>New Doctor</p>
+      </button>
+    <%= end %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link to: registration_path(@conn, :new_nurse) do %>
+      <button class="iconbutton">                            
+        <i class="fa fa-stethoscope" aria-hidden="true"></i>
+        <p>New Nurse</p>
+      </button>
+    <%= end %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link to: registration_path(@conn, :new_administrator) do %>
+      <button class="iconbutton">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        <p>New Administrator</p>
+      </button>
+    <%= end %>
+  </div>
+</div>
