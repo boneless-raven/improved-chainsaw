@@ -39,6 +39,8 @@ defmodule Hnet.Router do
     post "/patient", RegistrationController, :create_patient
     get "/admin", RegistrationController, :new_administrator
     post "/admin", RegistrationController, :create_administrator
+    get "/doctor", RegistrationController, :new_doctor
+    post "/doctor", RegistrationController, :create_doctor
   end
 
   # Other scopes may use custom stacks.
