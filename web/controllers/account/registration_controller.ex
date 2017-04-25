@@ -7,6 +7,8 @@ defmodule Hnet.Account.RegistrationController do
   import Hnet.Account.Authentication
   import Ecto.Query
 
+  plug Hnet.Account.RestrictAccess, to: :administrator
+
   def index(conn, _params) do
     render conn, "index.html"
   end
