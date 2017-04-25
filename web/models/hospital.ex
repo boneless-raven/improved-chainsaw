@@ -1,10 +1,18 @@
 defmodule Hnet.Hospital do
   use Hnet.Web, :model
 
+  alias Hnet.Account.Administrator
+  alias Hnet.Account.Doctor
+  alias Hnet.Account.Nurse
+
   schema "hospitals" do
     field :name, :string
     field :location, :string
     field :operational, :boolean, default: true
+
+    has_many :administrators, Administrator
+    has_many :doctors, Doctor
+    has_many :nurses, Nurse
 
     timestamps()
   end

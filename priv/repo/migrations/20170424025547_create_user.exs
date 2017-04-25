@@ -11,8 +11,8 @@ defmodule Hnet.Repo.Migrations.CreateUser do
       add :email, :string, null: false
       add :phone, :string, null: false
       add :address, :string, null: false
-      add :gender, :gender
-      add :account_type, :account_type
+      add :gender, :gender, null: false
+      add :account_type, :account_type, null: false
       add :username, :string, null: false
       add :password_hash, :string, null: false
 

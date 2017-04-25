@@ -2,6 +2,7 @@ defmodule Hnet.HospitalController do
   use Hnet.Web, :controller
 
   alias Hnet.Hospital
+  import Ecto.Changeset
 
   def index(conn, _params) do
     hospitals = Repo.all(Hospital)
@@ -52,14 +53,21 @@ defmodule Hnet.HospitalController do
   end
 
   def delete(conn, %{"id" => id}) do
-    hospital = Repo.get!(Hospital, id)
+    changeset = Repo.get!(Hospital, id)
+    |> change
+    |> no_assoc_constraint(:administrators)
+    |> no_assoc_constraint(:doctors)
+    |> no_assoc_constraint(:nurses)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(hospital)
-
-    conn
-    |> put_flash(:info, "Hospital deleted successfully.")
-    |> redirect(to: hospital_path(conn, :index))
+    case Repo.delete(changeset) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Hospital deleted successfully.")
+        |> redirect(to: hospital_path(conn, :index))
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Failed to delete the selected hospital.")
+        |> redirect(to: hospital_path(conn, :index))
+    end
   end
 end
