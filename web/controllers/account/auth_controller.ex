@@ -8,7 +8,7 @@ defmodule Hnet.Account.AuthController do
 
   def login(conn, %{"login_credentials" => login_params}) do
     case Authentication.login(conn, login_params) do
-      :ok ->
+      {:ok, conn} ->
         conn
         |> put_flash(:info, "Logged in")
         |> redirect(to: page_path(conn, :index))

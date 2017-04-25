@@ -3,11 +3,10 @@ defmodule Hnet.Account.Authentication do
   import Comeonin.Bcrypt
 
   def login(conn, params) do
-    user = Hnet.Repo.get_by(Hnet.User, username: String.downcase(params["email"]))
+    user = Hnet.Repo.get_by(Hnet.Account.User, username: String.downcase(params["username"]))
     case authenticate(user, params["password"]) do
       true -> 
-        put_user(conn, user)
-        :ok
+        {:ok, put_user(conn, user)}
       _ -> :error
     end
   end
