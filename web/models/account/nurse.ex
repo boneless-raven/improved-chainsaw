@@ -3,7 +3,7 @@ defmodule Hnet.Account.Nurse do
 
   schema "nurses" do
     belongs_to :hospital, Hnet.Hospital
-    belongs_to :user, Hnet.User
+    belongs_to :user, Hnet.Account.User
 
     timestamps()
   end

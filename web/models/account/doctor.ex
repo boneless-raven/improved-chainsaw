@@ -3,7 +3,8 @@ defmodule Hnet.Account.Doctor do
 
   schema "doctors" do
     belongs_to :hospital, Hnet.Hospital
-    belongs_to :user, Hnet.User
+    belongs_to :user, Hnet.Account.User
+    has_many :patients, Hnet.Account.Patient
 
     timestamps()
   end

@@ -7,6 +7,7 @@ defmodule Hnet.Account.Patient do
     field :emergency_contact_phone, :string
     belongs_to :emergency_contact, Hnet.Account.Patient
     belongs_to :user, Hnet.Account.User
+    belongs_to :primary_doctor, Hnet.Account.Doctor
 
     timestamps()
   end
