@@ -21,6 +21,10 @@ defmodule Hnet.Account.User do
     timestamps()
   end
 
+  def fullname(user) do
+    "#{user.first_name} #{user.last_name}"
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
