@@ -1,8 +1,11 @@
 defmodule Hnet.Account.RegistrationController do
   use Hnet.Web, :controller
 
+  alias Hnet.Account.User
+  alias Hnet.Account.Doctor
   alias Hnet.Account.Registration
   import Hnet.Account.Authentication
+  import Ecto.Query
 
   def index(conn, _params) do
     render conn, "index.html"
@@ -10,7 +13,8 @@ defmodule Hnet.Account.RegistrationController do
 
   def new_patient(conn, _params) do
     changeset = Registration.new_patient()
-    render conn, "patient.html", changeset: changeset
+    doctor_options = get_doctor_options()
+    render conn, "patient.html", changeset: changeset, doctor_options: doctor_options
   end
 
   def create_patient(conn, %{"user" => user_params}) do
@@ -23,7 +27,8 @@ defmodule Hnet.Account.RegistrationController do
         |> put_flash(:info, "Account created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
-        render conn, "patient.html", changeset: changeset
+        doctor_options = get_doctor_options()
+        render conn, "patient.html", changeset: changeset, doctor_options: doctor_options
     end
   end
 
@@ -85,5 +90,12 @@ defmodule Hnet.Account.RegistrationController do
         hospitals = Hnet.Repo.all(Hnet.Hospital)
         render conn, "nurse.html", changeset: changeset, hospitals: hospitals
     end
+  end
+
+  defp get_doctor_options do
+    query = from d in Doctor,
+            join: u in User, on: d.user_id == u.id,
+            select: {u, d.id}
+    Hnet.Repo.all(query) |> Enum.map(fn {u, d_id} -> {User.fullname(u), d_id} end)
   end
 end

@@ -10,7 +10,7 @@ defmodule Hnet.Account.Registration do
   alias Hnet.Account.Nurse
 
   @user_fields [:first_name, :last_name, :email, :phone, :address, :gender, :username, :password]
-  @patient_fields [:proof_of_insurance, :emergency_contact_name, :emergency_contact_phone]
+  @patient_fields [:primary_doctor_id, :proof_of_insurance, :emergency_contact_name, :emergency_contact_phone]
   @admin_fields [:hospital_id]
   @doctor_fields [:hospital_id]
   @nurse_fields [:hospital_id]

@@ -1,5 +1,8 @@
 defmodule Hnet.Account.User do
   use Hnet.Web, :model
+  alias Hnet.Account.User
+  import Ecto.Query
+
   require EctoEnum
   EctoEnum.defenum GenderEnum, :gender, [:male, :female]
   EctoEnum.defenum AccountTypeEnum, :account_type, [:patient, :doctor, :nurse, :administrator]
@@ -26,6 +29,11 @@ defmodule Hnet.Account.User do
 
   def fullname(user) do
     "#{user.first_name} #{user.last_name}"
+  end
+
+  def all_users_of_type(account_type) do
+    query = from u in User, where: u.account_type == ^account_type
+    Hnet.Repo.all(query)
   end
 
   @doc """
