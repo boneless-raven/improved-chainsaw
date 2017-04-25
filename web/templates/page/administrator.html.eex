@@ -14,7 +14,7 @@
   </div>
 
   <div class="col-md-3">
-    <a target="_parent">
+    <a href="<%= registration_path(@conn, :index) %>">
       <button class="iconbutton">
         <i class="fa fa-users" aria-hidden="true"></i>
         <p>Add Account</p>
@@ -23,7 +23,7 @@
   </div>
 
   <div class="col-md-3">
-    <a target="_parent">
+    <a>
       <button class="iconbutton">                            
         <i class="fa fa-plus-square" aria-hidden="true"></i>
         <p>Drug List</p>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="col-md-3">
-    <a target="_parent">
+    <a>
       <button class="iconbutton">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
         <p>Messages</p>

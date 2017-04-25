@@ -4,6 +4,10 @@ defmodule Hnet.Account.RegistrationController do
   alias Hnet.Account.Registration
   import Hnet.Account.Authentication
 
+  def index(conn, _params) do
+    render conn, "index.html"
+  end
+
   def new_patient(conn, _params) do
     changeset = Registration.new_patient()
     render conn, "patient.html", changeset: changeset

@@ -28,4 +28,4 @@
   </div>
 <% end %>
 
-<%= link "Back", to: page_path(@conn, :index) %>
+<%= link "Back", to: registration_path(@conn, :index) %>

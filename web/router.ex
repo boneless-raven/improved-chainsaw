@@ -35,6 +35,7 @@ defmodule Hnet.Router do
   scope "/registration", Hnet.Account do
     pipe_through :browser
 
+    get "/", RegistrationController, :index
     get "/patient", RegistrationController, :new_patient
     post "/patient", RegistrationController, :create_patient
     get "/admin", RegistrationController, :new_administrator
