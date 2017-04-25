@@ -29,7 +29,7 @@ defmodule Hnet.Router do
     get "/login", AuthController, :signin
     post "/login", AuthController, :login
     post "/logout", AuthController, :logout
-    resources "/users", UserController
+    resources "/users", UserController, only: [:index, :show, :delete]
   end
 
   scope "/registration", Hnet.Account do
