@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h2>Patient dashboard</h2>
+  <h2>Patient Dashboard</h2>
   <%= greeting @current_user %>
 </div>
 

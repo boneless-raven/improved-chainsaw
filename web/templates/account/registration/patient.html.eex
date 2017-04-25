@@ -1,4 +1,4 @@
-<h2>New patient</h2>
+<h2>New Patient</h2>
 
 <%= render "form.html", conn: @conn,
                         changeset: @changeset,
