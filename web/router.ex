@@ -7,7 +7,7 @@ defmodule Hnet.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Hnet.Account.AssignUser
+    plug Hnet.Account.Plugs.AssignUser
   end
 
   pipeline :api do

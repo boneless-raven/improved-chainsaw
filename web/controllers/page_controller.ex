@@ -1,7 +1,7 @@
 defmodule Hnet.PageController do
   use Hnet.Web, :controller
 
-  alias Hnet.Account.RestrictAccess
+  alias Hnet.Account.Plugs.RestrictAccess
   plug RestrictAccess, [to: :patient] when action in [:patient]
   plug RestrictAccess, [to: :administrator] when action in [:administrator]
 

@@ -16,17 +16,22 @@
         <div class="navbar-header">
           <%= link "HNet", to: page_path(@conn, :index), class: "navbar-brand" %>
         </div>
+        
+        <ul class="nav navbar-nav">
+          <li><%= link "Hospitals", to: hospital_path(@conn, :index) %></li>
+          <li><%= link "Users", to: user_path(@conn, :index) %></li>
+        </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-            <%= if @current_user do %>
-              <%= form_for @conn, auth_path(@conn, :logout), [as: :logout, id: "logout-form", hidden: true], fn _ -> %>
-              <%= end %>
-              <li><a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a></li>
-            <%= else %>
-              <li><%= link "Sign Up", to: registration_path(@conn, :new_patient) %></li>
-              <li><%= link "Sign In", to: auth_path(@conn, :login) %></li>
+        <ul class="nav navbar-nav navbar-right">
+          <%= if @current_user do %>
+            <%= form_for @conn, auth_path(@conn, :logout), [as: :logout, id: "logout-form", hidden: true], fn _ -> %>
             <%= end %>
-          </ul>
+            <li><a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a></li>
+          <%= else %>
+            <li><%= link "Sign Up", to: registration_path(@conn, :new_patient) %></li>
+            <li><%= link "Sign In", to: auth_path(@conn, :login) %></li>
+          <%= end %>
+        </ul>
       </div>
     </nav>
 
