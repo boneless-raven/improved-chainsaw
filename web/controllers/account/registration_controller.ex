@@ -16,7 +16,7 @@ defmodule Hnet.Account.RegistrationController do
       {:ok, user} ->
         conn
         |> put_user(user)
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "Account created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
         render conn, "patient.html", changeset: changeset
@@ -29,7 +29,17 @@ defmodule Hnet.Account.RegistrationController do
     render conn, "administrator.html", changeset: changeset, hospitals: hospitals
   end
 
-  def create_administrator(conn, _params) do
-    
+  def create_administrator(conn, %{"user" => user_params}) do
+    changeset = Registration.new_administrator(user_params)
+
+    case Repo.insert(changeset) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "Administrator created successfully.")
+        |> redirect(to: user_path(conn, :index))
+      {:error, changeset} ->
+        hospitals = Hnet.Repo.all(Hnet.Hospital)
+        render conn, "administrator.html", changeset: changeset, hospitals: hospitals
+    end
   end
 end

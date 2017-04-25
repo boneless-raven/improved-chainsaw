@@ -5,9 +5,11 @@ defmodule Hnet.Account.Registration do
 
   alias Hnet.Account.User
   alias Hnet.Account.Patient
+  alias Hnet.Account.Administrator
 
   @user_fields [:first_name, :last_name, :email, :phone, :address, :gender, :username, :password]
   @patient_fields [:proof_of_insurance, :emergency_contact_name, :emergency_contact_phone]
+  @admin_fields [:hospital_id]
 
   def new_user(params \\ %{}) do
     %User{}
@@ -33,7 +35,15 @@ defmodule Hnet.Account.Registration do
   end
 
   def new_administrator(user_params \\ %{}) do
+    admin_params = user_params["administrator"] || %{}
+
+    admin_changeset = %Administrator{}
+    |> cast(admin_params, @admin_fields)
+    |> validate_required(@admin_fields)
+
     new_user(user_params)
+    |> put_assoc(:administrator, admin_changeset)
+    |> put_change(:account_type, :administrator)
   end
 
   defp hash_password(changeset) do

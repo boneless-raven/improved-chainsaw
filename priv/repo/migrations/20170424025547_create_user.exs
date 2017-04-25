@@ -1,9 +1,10 @@
 defmodule Hnet.Repo.Migrations.CreateUser do
   use Ecto.Migration
+  import Hnet.Account.User
 
   def change do
-    Hnet.User.GenderEnum.create_type
-    Hnet.User.AccountTypeEnum.create_type
+    Hnet.Account.User.GenderEnum.create_type
+    Hnet.Account.User.AccountTypeEnum.create_type
     create table(:users) do
       add :first_name, :string, null: false
       add :last_name, :string, null: false
