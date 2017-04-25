@@ -6,7 +6,7 @@ defmodule Hnet.Account.RegistrationController do
 
   def new_patient(conn, _params) do
     changeset = Registration.new_patient()
-    render(conn, "patient.html", changeset: changeset)
+    render conn, "patient.html", changeset: changeset
   end
 
   def create_patient(conn, %{"user" => user_params}) do
@@ -19,7 +19,7 @@ defmodule Hnet.Account.RegistrationController do
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "patient.html", changeset: changeset)
+        render conn, "patient.html", changeset: changeset
     end
   end
 end

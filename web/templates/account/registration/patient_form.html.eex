@@ -1,0 +1,5 @@
+<%= inputs_for @u, :patient, fn p -> %>
+  <%= form_group p, :proof_of_insurance %>
+  <%= form_group p, :emergency_contact_name %>
+  <%= form_group p, :emergency_contact_phone %>
+<%= end %>
