@@ -1,0 +1,42 @@
+<div class="jumbotron">
+  <h2>Administrator dashboard</h2>
+  <p class="lead">Hi there, <%= @current_user.first_name %> <%= @current_user.last_name %>!</p>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-tasks" aria-hidden="true"></i>
+        <p>System Log</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-3">
+    <a target="_parent">
+      <button class="iconbutton">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <p>Add Account</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-3">
+    <a target="_parent">
+      <button class="iconbutton">                            
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+        <p>Drug List</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-3">
+    <a target="_parent">
+      <button class="iconbutton">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <p>Messages</p>
+      </button>
+    </a>
+  </div>
+</div>

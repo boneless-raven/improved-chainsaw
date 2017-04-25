@@ -9,6 +9,7 @@
 
     <title>Hello Hnet!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script src="https://use.fontawesome.com/4c272d4bbc.js"></script>
   </head>
 
   <body>
