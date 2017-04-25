@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h2>Patient dashboard</h2>
-  <p class="lead">Hi there, <%= @current_user.first_name %> <%= @current_user.last_name %>!</p>
+  <%= greeting @current_user %>
 </div>
 
 <div class="row marketing">
