@@ -62,4 +62,24 @@ defmodule Hnet.Account.RegistrationController do
         render conn, "doctor.html", changeset: changeset, hospitals: hospitals
     end
   end
+
+  def new_nurse(conn, _params) do
+    changeset = Registration.new_nurse()
+    hospitals = Hnet.Repo.all(Hnet.Hospital)
+    render conn, "nurse.html", changeset: changeset, hospitals: hospitals
+  end
+
+  def create_nurse(conn, %{"user" => user_params}) do
+    changeset = Registration.new_nurse(user_params)
+
+    case Repo.insert(changeset) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "Nurse created successfully.")
+        |> redirect(to: user_path(conn, :index))
+      {:error, changeset} ->
+        hospitals = Hnet.Repo.all(Hnet.Hospital)
+        render conn, "nurse.html", changeset: changeset, hospitals: hospitals
+    end
+  end
 end

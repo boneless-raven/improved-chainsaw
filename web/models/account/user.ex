@@ -19,6 +19,7 @@ defmodule Hnet.Account.User do
     has_one :patient, Hnet.Account.Patient
     has_one :administrator, Hnet.Account.Administrator
     has_one :doctor, Hnet.Account.Doctor
+    has_one :nurse, Hnet.Account.Nurse
 
     timestamps()
   end
