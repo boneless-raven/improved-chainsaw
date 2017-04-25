@@ -4,7 +4,7 @@ defmodule Hnet.HospitalController do
   alias Hnet.Hospital
   import Ecto.Changeset
 
-  plug Hnet.Account.RestrictAccess, [to: :administrator] when action in [:delete]
+  plug Hnet.Account.Plugs.RestrictAccess, [to: :administrator] when action in [:delete]
 
   def index(conn, _params) do
     hospitals = Repo.all(Hospital)

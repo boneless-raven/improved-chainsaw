@@ -7,6 +7,8 @@ defmodule Mix.Tasks.Hnet.CreateAdmin do
 
   import Phoenix.Naming
 
+  @shortdoc "Create an administrator account"
+
   def run(_) do
     Application.ensure_all_started(:hnet)
 

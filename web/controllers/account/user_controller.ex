@@ -4,7 +4,7 @@ defmodule Hnet.Account.UserController do
   import Hnet.Account.Authentication
   alias Hnet.Account.User
 
-  plug Hnet.Account.RestrictAccess, [to: :administrator] when action in [:delete]
+  plug Hnet.Account.Plugs.RestrictAccess, [to: :administrator] when action in [:delete]
   
   def index(conn, _params) do
     users = Repo.all(User)

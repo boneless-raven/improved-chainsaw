@@ -1,4 +1,30 @@
-defmodule Hnet.Account.RestrictAccess do
+defmodule Hnet.Account.Plugs.RestrictAccess do
+  @moduledoc """
+  A plug that restrict access based on the current user's account type.
+  If the user isn't logged in or isn't the allowed account types, 
+  the user will be redirected to the given redirect URL,
+  or the login page.
+  An `:error` flash message will also be inserted
+  to notify the user to sign in to an authorized accounts.
+
+  ## Supported Options
+  * `:to` can be an atom or a list of atoms
+          containing one or more account types that are allowed access.
+  * `:redirect` is the URL to redirect to if the user doesn't have access.
+
+  ## Examples
+  Restrict access to the `:delete` controller action
+  to be only available to the `:administrator` account type.
+
+      plug Hnet.Account.Plugs.RestrictAccess, [to: :administrator] when action in [:delete]
+
+  Restrict access to the `:show` controller action
+  to be only available to `:doctor` and `:nurse` account type.
+
+      plug Hnet.Account.Plugs.RestrictAccess, [to: [:doctor, :nurse]] when action in [:show]
+
+  """
+
   import Plug.Conn
   import Phoenix.Controller
   import Hnet.Router.Helpers
