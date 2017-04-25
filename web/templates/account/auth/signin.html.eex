@@ -3,6 +3,9 @@
 <%= form_for @conn, auth_path(@conn, :login), [as: :login_credentials], fn f -> %>
   <%= form_group f, :username %>
   <%= form_group f, :password %>
+  <%= if @next do %>
+    <%= hidden_input f, :next, value: @next %>
+  <%= end %>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

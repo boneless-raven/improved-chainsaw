@@ -26,7 +26,7 @@ defmodule Hnet.Account.RestrictAccess do
   defp block_access(conn, account_type, opts) do
     conn
     |> put_flash(:error, message_for_account_type(account_type, opts))
-    |> redirect(to: opts[:redirect] || auth_path(conn, :signin))
+    |> redirect(to: opts[:redirect] || auth_path(conn, :signin, next: conn.request_path))
     |> halt
   end
 

@@ -2,16 +2,16 @@ defmodule Hnet.Account.AuthController do
   use Hnet.Web, :controller
   alias Hnet.Account.Authentication
 
-  def signin(conn, _params) do
-    render conn, "signin.html"
+  def signin(conn, params) do
+    render conn, "signin.html", next: params["next"]
   end
 
-  def login(conn, %{"login_credentials" => login_params}) do
-    case Authentication.login(conn, login_params) do
+  def login(conn, %{"login_credentials" => params}) do
+    case Authentication.login(conn, params) do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Logged in")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: params["next"] || page_path(conn, :index))
       :error ->
         conn
         |> put_flash(:error, "Wrong username or password.")
