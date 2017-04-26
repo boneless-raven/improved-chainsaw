@@ -1,7 +1,6 @@
 defmodule Hnet.ModelCase do
   @moduledoc """
-  This module defines the test case to be used by
-  model tests.
+  This module defines the test case to be used by model tests.
 
   You may define functions here to be used as helpers in
   your model tests. See `errors_on/2`'s definition as reference.

@@ -21,8 +21,10 @@ defmodule Hnet.Account.Registration do
   @doctor_fields [:hospital_id]
   @nurse_fields [:hospital_id]
 
-  # Build a changeset for creating new user with the given params.
-  defp new_user(params) do
+  @doc """
+  Build a changeset for creating new user with the given params.
+  """
+  def new_user(params) do
     %User{}
     |> cast(params, @user_fields)
     |> validate_required(@user_fields)
@@ -42,7 +44,8 @@ defmodule Hnet.Account.Registration do
     # Builds changeset validations against the patient data.
     patient_changeset = %Patient{}
     |> cast(patient_params, @patient_fields)
-    |> validate_required([:proof_of_insurance])
+    |> validate_required([:primary_doctor_id, :proof_of_insurance])
+    |> assoc_constraint(:primary_doctor)
 
     # Associate the patient changeset with the user changeset.
     new_user(user_params)
@@ -60,6 +63,7 @@ defmodule Hnet.Account.Registration do
     admin_changeset = %Administrator{}
     |> cast(admin_params, @admin_fields)
     |> validate_required(@admin_fields)
+    |> assoc_constraint(:hospital)
 
     # Associate the administrator changeset with the user changeset.
     new_user(user_params)
@@ -77,6 +81,7 @@ defmodule Hnet.Account.Registration do
     doctor_changeset = %Doctor{}
     |> cast(doctor_params, @doctor_fields)
     |> validate_required(@doctor_fields)
+    |> assoc_constraint(:hospital)
 
     # Associate the doctor changeset with the user changeset.
     new_user(user_params)
@@ -94,6 +99,7 @@ defmodule Hnet.Account.Registration do
     nurse_changeset = %Nurse{}
     |> cast(nurse_params, @nurse_fields)
     |> validate_required(@nurse_fields)
+    |> assoc_constraint(:hospital)
 
     # Associate the nurse changeset with the user changeset.
     new_user(user_params)
