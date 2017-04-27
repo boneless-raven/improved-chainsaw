@@ -53,7 +53,7 @@ defmodule Mix.Tasks.Hnet.CreateAdmin do
   end
 
   defp split_name(full_name) do
-    parts = String.split(full_name, " ", parts: 2, trim: true)
+    parts = String.split(full_name)
     {List.first(parts), List.last(parts)}
   end
 
