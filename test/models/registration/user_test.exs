@@ -21,7 +21,6 @@ defmodule Hnet.Registration.UserTest do
     assert get_change(changeset, :username) == @valid_attrs.username
     assert get_change(changeset, :address) == @valid_attrs.address
     assert get_change(changeset, :gender) == :male
-    assert {:ok, _} = fetch_change(changeset, :password_hash)
   end
 
   test "changeset with attributes with invalid formats" do
