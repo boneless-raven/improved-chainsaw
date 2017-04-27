@@ -15,7 +15,7 @@ defmodule Hnet.Account.AuthController do
       :error ->
         conn
         |> put_flash(:error, "Wrong username or password.")
-        |> render("signin.html")
+        |> render("signin.html", next: params["next"])
     end
   end
 
