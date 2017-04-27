@@ -11,25 +11,27 @@ defmodule Hnet.Registration.AdministratorTest do
   @empty_attrs %{}
 
   setup do
-    {:ok, hospital: create_default_hospital()}
+    hospital = create_default_hospital()
+    {:ok, hospital: hospital}
   end
 
   test "changeset with valid attributes", %{hospital: hospital} do
     hospital_id = hospital.id
     params = set_hospital_id(@valid_attrs, hospital_id)
     changeset = Registration.new_administrator(params)
-    assert changeset.valid?
-    assert get_change(changeset, :first_name) == @valid_attrs.first_name
-    assert get_change(changeset, :last_name) == @valid_attrs.last_name
-    assert get_change(changeset, :phone) == @valid_attrs.phone
-    assert get_change(changeset, :email) == @valid_attrs.email
-    assert get_change(changeset, :username) == @valid_attrs.username
-    assert get_change(changeset, :address) == @valid_attrs.address
-    assert get_change(changeset, :account_type) == :administrator
-    assert get_change(changeset, :gender) == :male
-    assert {:ok, _} = fetch_change(changeset, :password_hash)
-    administrator_changeset = get_change(changeset, :administrator)
-    assert get_change(administrator_changeset, :hospital_id) == hospital_id
+
+    assert {:ok, user} = Repo.insert(changeset)
+    assert user.first_name == @valid_attrs.first_name
+    assert user.last_name == @valid_attrs.last_name
+    assert user.phone == @valid_attrs.phone
+    assert user.email == @valid_attrs.email
+    assert user.username == @valid_attrs.username
+    assert user.address == @valid_attrs.address
+    assert user.account_type == :administrator
+    assert user.gender == :male
+    assert user.password_hash
+    administrator = Repo.preload user.administrator, :hospital
+    assert administrator.hospital.id == hospital_id
   end
 
   test "changeset with invalid hospital id", %{hospital: hospital} do

@@ -20,19 +20,20 @@ defmodule Hnet.Registration.PatientTest do
   test "changeset with valid attributes", %{doctor_user: doctor_user} do
     doctor_id = doctor_user.doctor.id
     changeset = set_primary_doctor_id(@valid_attrs, doctor_id) |> Registration.new_patient
-    assert changeset.valid?
-    assert get_change(changeset, :first_name) == @valid_attrs.first_name
-    assert get_change(changeset, :last_name) == @valid_attrs.last_name
-    assert get_change(changeset, :phone) == @valid_attrs.phone
-    assert get_change(changeset, :email) == @valid_attrs.email
-    assert get_change(changeset, :username) == @valid_attrs.username
-    assert get_change(changeset, :address) == @valid_attrs.address
-    assert get_change(changeset, :account_type) == :patient
-    assert get_change(changeset, :gender) == :male
-    assert {:ok, _} = fetch_change(changeset, :password_hash)
-    patient_changeset = get_change(changeset, :patient)
-    assert get_change(patient_changeset, :proof_of_insurance) == @valid_attrs.patient.proof_of_insurance
-    assert get_change(patient_changeset, :primary_doctor_id) == doctor_id
+
+    assert {:ok, user} = Repo.insert(changeset)
+    assert user.first_name == @valid_attrs.first_name
+    assert user.last_name == @valid_attrs.last_name
+    assert user.phone == @valid_attrs.phone
+    assert user.email == @valid_attrs.email
+    assert user.username == @valid_attrs.username
+    assert user.address == @valid_attrs.address
+    assert user.account_type == :patient
+    assert user.gender == :male
+    assert user.password_hash
+    assert user.patient.proof_of_insurance == @valid_attrs.patient.proof_of_insurance
+    patient = Repo.preload user.patient, :primary_doctor
+    assert patient.primary_doctor.id == doctor_id
   end
 
   test "changeset with invalid primary doctor id", %{doctor_user: doctor_user} do
@@ -46,6 +47,7 @@ defmodule Hnet.Registration.PatientTest do
 
   test "changeset with empty attributes" do
     changeset = Registration.new_patient(@empty_attrs)
+
     refute changeset.valid?
     assert Keyword.has_key?(changeset.errors, :phone)
     assert Keyword.has_key?(changeset.errors, :email)

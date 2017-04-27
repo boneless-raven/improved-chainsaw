@@ -18,18 +18,19 @@ defmodule Hnet.Registration.DoctorTest do
     hospital_id = hospital.id
     params = set_hospital_id(@valid_attrs, hospital_id)
     changeset = Registration.new_doctor(params)
-    assert changeset.valid?
-    assert get_change(changeset, :first_name) == @valid_attrs.first_name
-    assert get_change(changeset, :last_name) == @valid_attrs.last_name
-    assert get_change(changeset, :phone) == @valid_attrs.phone
-    assert get_change(changeset, :email) == @valid_attrs.email
-    assert get_change(changeset, :username) == @valid_attrs.username
-    assert get_change(changeset, :address) == @valid_attrs.address
-    assert get_change(changeset, :account_type) == :doctor
-    assert get_change(changeset, :gender) == :female
-    assert {:ok, _} = fetch_change(changeset, :password_hash)
-    doctor_changeset = get_change(changeset, :doctor)
-    assert get_change(doctor_changeset, :hospital_id) == hospital_id
+
+    assert {:ok, user} = Repo.insert(changeset)
+    assert user.first_name == @valid_attrs.first_name
+    assert user.last_name == @valid_attrs.last_name
+    assert user.phone == @valid_attrs.phone
+    assert user.email == @valid_attrs.email
+    assert user.username == @valid_attrs.username
+    assert user.address == @valid_attrs.address
+    assert user.account_type == :doctor
+    assert user.gender == :female
+    assert user.password_hash
+    doctor = Repo.preload user.doctor, :hospital
+    assert doctor.hospital.id == hospital_id
   end
 
   test "changeset with invalid hospital id", %{hospital: hospital} do
