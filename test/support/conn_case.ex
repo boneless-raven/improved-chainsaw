@@ -38,6 +38,21 @@ defmodule Hnet.ConnCase do
         |> send_resp(:ok, "")
         |> recycle
       end
+
+      def assert_conn(conn, :success, content) do
+        assert html_response(conn, 200) =~ content
+        conn
+      end
+
+      def assert_conn(conn, :redirect, destination) do
+        assert redirected_to(conn) =~ destination
+        conn
+      end
+
+      def assert_conn(conn, statement) do
+        statement.(conn)
+        conn
+      end
     end
   end
 
