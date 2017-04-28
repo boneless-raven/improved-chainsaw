@@ -11,15 +11,10 @@ defmodule Hnet.PageControllerTest do
   test "homepage with patient user", %{conn: conn} do
     create_default_hospital()
     create_default_doctor()
-    create_default_patient()
-
-    credentials = %{
-      "username" => "hound",
-      "password" => "phoenix"
-    }
+    user_id = create_default_patient().id
 
     conn = conn
-    |> post(auth_path(conn, :login), login_credentials: credentials)
+    |> login(user_id)
     |> get(page_path(conn, :index))
 
     assert redirected_to(conn) =~ page_path(conn, :patient)
@@ -30,11 +25,7 @@ defmodule Hnet.PageControllerTest do
     user_id = create_default_administrator().id
 
     conn = conn
-    |> bypass_through(Hnet.Router, [:browser])
-    |> get("/")
-    |> put_session(:current_user_id, user_id)
-    |> send_resp(:ok, "")
-    |> recycle
+    |> login(user_id)
     |> get(page_path(conn, :index))
 
     assert redirected_to(conn) =~ page_path(conn, :administrator)

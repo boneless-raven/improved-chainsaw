@@ -29,6 +29,15 @@ defmodule Hnet.ConnCase do
 
       # The default endpoint for testing
       @endpoint Hnet.Endpoint
+
+      def login(conn, user_id) do
+        conn
+        |> bypass_through(Hnet.Router, [:browser])
+        |> get("/")
+        |> put_session(:current_user_id, user_id)
+        |> send_resp(:ok, "")
+        |> recycle
+      end
     end
   end
 
