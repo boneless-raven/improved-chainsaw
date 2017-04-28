@@ -36,7 +36,7 @@ defmodule Hnet.Account.Plugs.RestrictAccess do
 
   def call(conn, opts) do
     case conn.assigns[:current_user] do
-      nil -> block_access(conn, nil, opts)
+      nil -> check_account_type(conn, :anonymous, opts)
       user -> check_account_type(conn, user.account_type, opts)
     end
   end
