@@ -18,7 +18,7 @@ defmodule Hnet.AuthControllerTest do
     |> redirected_to =~ page_path(conn, :index)
   end
 
-  test "login", %{conn: conn} do
+  test "login with valid credentials", %{conn: conn} do
     create_default_hospital()
     user_id = create_default_administrator().id
 

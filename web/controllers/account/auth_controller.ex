@@ -3,7 +3,7 @@ defmodule Hnet.Account.AuthController do
   alias Hnet.Account.Authentication
 
   alias Hnet.Account.Plugs.RestrictAccess
-  plug RestrictAccess, [to: :anonymous] when action in [:login, :signin]
+  plug RestrictAccess, [to: :anonymous, redirect: "/"] when action in [:login, :signin]
 
   def signin(conn, params) do
     render conn, "signin.html", next: params["next"]

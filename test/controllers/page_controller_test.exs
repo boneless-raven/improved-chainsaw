@@ -13,21 +13,19 @@ defmodule Hnet.PageControllerTest do
     create_default_doctor()
     user_id = create_default_patient().id
 
-    conn = conn
+    conn
     |> login(user_id)
     |> get(page_path(conn, :index))
-
-    assert redirected_to(conn) =~ page_path(conn, :patient)
+    |> assert_conn(:redirect, page_path(conn, :patient))
   end
 
   test "homepage with administrator user", %{conn: conn} do
     create_default_hospital()
     user_id = create_default_administrator().id
 
-    conn = conn
+    conn
     |> login(user_id)
     |> get(page_path(conn, :index))
-
-    assert redirected_to(conn) =~ page_path(conn, :administrator)
+    |> assert_conn(:redirect, page_path(conn, :administrator))
   end
 end

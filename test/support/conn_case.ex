@@ -45,6 +45,11 @@ defmodule Hnet.ConnCase do
       end
 
       def assert_conn(conn, :redirect, destination) do
+        assert redirected_to(conn) == destination
+        conn
+      end
+
+      def assert_conn(conn, :redirect, :similar_to, destination) do
         assert redirected_to(conn) =~ destination
         conn
       end
