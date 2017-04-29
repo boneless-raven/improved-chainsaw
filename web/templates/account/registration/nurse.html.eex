@@ -1,7 +1,8 @@
 <h2>New Nurse</h2>
 
-<%= render "form.html", conn: @conn,
-                        changeset: @changeset,
+<%= render "form.html", changeset: @changeset,
                         sub_form: "nurse_form.html",
                         opts: [hospitals: @hospitals],
                         action: registration_path(@conn, :create_nurse) %>
+
+<%= link "Back", to: registration_path(@conn, :index) %>

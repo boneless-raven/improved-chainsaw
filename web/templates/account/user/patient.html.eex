@@ -1,0 +1,15 @@
+<h2>Profile Information</h2>
+
+<%= form_for @changeset, user_path(@conn, :update_profile), fn f -> %>
+  <%= render Hnet.Account.FormView, "user.html", changeset: @changeset, form: f %>
+
+  <%= render Hnet.Account.FormView, "patient.html", form: f %>
+
+  <%= hidden_input f, :id %>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<%= end %>
+
+<%= link "Back", to: page_path(@conn, :index) %>
