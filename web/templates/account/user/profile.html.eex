@@ -9,8 +9,6 @@
   
   <%= render Hnet.Account.FormView, "user.html", changeset: @changeset, form: f %>
 
-  <%= hidden_input f, :id %>
-
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>

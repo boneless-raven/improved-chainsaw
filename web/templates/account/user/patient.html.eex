@@ -11,8 +11,6 @@
 
   <%= render Hnet.Account.FormView, "patient.html", form: f %>
 
-  <%= hidden_input f, :id %>
-
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>

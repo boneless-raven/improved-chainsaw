@@ -7,7 +7,7 @@ defmodule Hnet.Changeset.Transformation do
   Will raise if the given field doesn't exist or is `nil`.
   """
   def to_lowercase(changeset, field) do
-    put_change(changeset, field, String.downcase(get_change(changeset, field)))
+    transform(changeset, field, &String.downcase/1)
   end
 
   @doc """
@@ -16,6 +16,15 @@ defmodule Hnet.Changeset.Transformation do
   Will raise if the given field doesn't exist or is `nil`.
   """
   def trim(changeset, field) do
-    put_change(changeset, field, String.trim(get_change(changeset, field)))
+    transform(changeset, field, &String.trim/1)
+  end
+
+  defp transform(changeset, field, transformation) do
+    value = get_change(changeset, field)
+    if value do
+      put_change(changeset, field, transformation.(value))
+    else
+      changeset
+    end
   end
 end

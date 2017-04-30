@@ -31,7 +31,7 @@ defmodule Hnet.Router do
     post "/logout", AuthController, :logout
     resources "/users", UserController, only: [:index, :show, :delete]
     get "/profile", UserController, :edit_profile
-    post "/profile", UserController, :update_profile
+    put "/profile", UserController, :update_profile
   end
 
   scope "/registration", Hnet.Account do

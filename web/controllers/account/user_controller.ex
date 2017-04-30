@@ -1,9 +1,8 @@
 defmodule Hnet.Account.UserController do
   use Hnet.Web, :controller
 
-  import Ecto.Changeset
-
   import Hnet.Account.Authentication
+  alias Hnet.Account.Profile
   alias Hnet.Account.User
 
   alias Hnet.Account.Plugs.RestrictAccess
@@ -15,21 +14,29 @@ defmodule Hnet.Account.UserController do
     render(conn, "index.html", users: users)
   end
 
-  def edit_profile(conn, params) do
-    render_profile conn, conn.assigns[:current_user]
+  def edit_profile(conn, _params) do
+    user = conn.assigns[:current_user]
+    render conn, profile_template_name(user.account_type), changeset: Profile.update(user)
   end
 
-  def update_profile(conn, params) do
-    
+  def update_profile(conn, %{"user" => params}) do
+    user = conn.assigns[:current_user]
+    changeset = Profile.update(user, params)
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "All changes saved.")
+        |> render(profile_template_name(user.account_type), changeset: changeset)
+      {:error, changeset} ->
+        render conn, profile_template_name(user.account_type), changeset: changeset
+    end
   end
 
-  defp render_profile(conn, user) do
-    case user.account_type do
-      :patient ->
-        changeset = Repo.preload(user, :patient) |> change
-        render(conn, "patient.html", changeset: changeset)
-      _ ->
-        render(conn, "profile.html", changeset: change(user))
+  defp profile_template_name(account_type) do
+    case account_type do
+      :patient -> "patient.html"
+      _ -> "profile.html"
     end
   end
 
