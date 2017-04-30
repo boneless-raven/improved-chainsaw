@@ -1,7 +1,7 @@
 <%= inputs_for @form, :doctor, fn f -> %>
   <div class="form-group">
     <%= label f, :hospital_id, class: "control-label" %>
-    <%= select f, :hospital_id, get_hospital_options(), class: "form-control" %>
+    <%= select f, :hospital_id, get_hospital_options(), prompt: "Please specify the hospital.", class: "form-control" %>
     <%= error_tag f, :hospital_id %>
   </div>
 <%= end %>

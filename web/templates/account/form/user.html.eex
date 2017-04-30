@@ -3,7 +3,7 @@
 
 <div class="form-group">
   <%= label @form, :gender, class: "control-label" %>
-  <%= select @form, :gender, ["Male": :male, "Female": :female], class: "form-control" %>
+  <%= select @form, :gender, ["Male": :male, "Female": :female], prompt: "Please specify your biological gender (for medical reasons).", class: "form-control" %>
   <%= error_tag @form, :gender %>
 </div>
 

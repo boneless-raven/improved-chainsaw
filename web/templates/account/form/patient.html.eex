@@ -1,7 +1,7 @@
 <%= inputs_for @form, :patient, fn f -> %>
   <div class="form-group">
     <%= label f, :primary_doctor_id, class: "control-label" %>
-    <%= select f, :primary_doctor_id, get_doctor_options(), class: "form-control" %>
+    <%= select f, :primary_doctor_id, get_doctor_options(), prompt: "Please choose your primary doctor.", class: "form-control" %>
     <%= error_tag f, :primary_doctor_id %>
   </div>
   <%= form_group f, :proof_of_insurance %>
