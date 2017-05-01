@@ -7,7 +7,9 @@ defmodule Hnet.Account.RegistrationController do
   import Hnet.Account.Authentication
   import Ecto.Query
 
-  plug Hnet.Account.Plugs.RestrictAccess, [to: :administrator] when action in [:index, :new_administrator, :create_administrator, :new_doctor, :create_doctor, :new_nurse, :create_nurse]
+  alias Hnet.Account.Plugs.RestrictAccess
+  plug RestrictAccess, [to: :anonymous, redirect: "/"] when action in [:new_patient, :create_patient]
+  plug RestrictAccess, [to: :administrator] when action in [:index, :new_administrator, :create_administrator, :new_doctor, :create_doctor, :new_nurse, :create_nurse]
 
   def index(conn, _params) do
     render conn, "index.html"

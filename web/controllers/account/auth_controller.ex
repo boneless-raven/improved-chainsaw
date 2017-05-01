@@ -2,6 +2,9 @@ defmodule Hnet.Account.AuthController do
   use Hnet.Web, :controller
   alias Hnet.Account.Authentication
 
+  alias Hnet.Account.Plugs.RestrictAccess
+  plug RestrictAccess, [to: :anonymous, redirect: "/"] when action in [:login, :signin]
+
   def signin(conn, params) do
     render conn, "signin.html", next: params["next"]
   end
@@ -15,7 +18,7 @@ defmodule Hnet.Account.AuthController do
       :error ->
         conn
         |> put_flash(:error, "Wrong username or password.")
-        |> render("signin.html")
+        |> render("signin.html", next: params["next"])
     end
   end
 

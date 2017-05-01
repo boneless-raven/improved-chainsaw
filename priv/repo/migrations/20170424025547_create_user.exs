@@ -1,6 +1,5 @@
 defmodule Hnet.Repo.Migrations.CreateUser do
   use Ecto.Migration
-  import Hnet.Account.User
 
   def change do
     Hnet.Account.User.GenderEnum.create_type
@@ -18,6 +17,7 @@ defmodule Hnet.Repo.Migrations.CreateUser do
 
       timestamps()
     end
+    create unique_index(:users, [:username])
 
   end
 end

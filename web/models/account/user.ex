@@ -1,7 +1,5 @@
 defmodule Hnet.Account.User do
   use Hnet.Web, :model
-  alias Hnet.Account.User
-  import Ecto.Query
 
   require EctoEnum
   EctoEnum.defenum GenderEnum, :gender, [:male, :female]
@@ -29,19 +27,5 @@ defmodule Hnet.Account.User do
 
   def fullname(user) do
     "#{user.first_name} #{user.last_name}"
-  end
-
-  def all_users_of_type(account_type) do
-    query = from u in User, where: u.account_type == ^account_type
-    Hnet.Repo.all(query)
-  end
-
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
-  def changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, [:first_name, :last_name, :email, :phone, :address, :gender, :account_type])
-    |> validate_required([:first_name, :last_name, :email, :phone, :address, :gender, :account_type])
   end
 end

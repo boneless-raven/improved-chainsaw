@@ -1,0 +1,42 @@
+<div class="jumbotron">
+  <h2>Doctor Dashboard</h2>
+  <%= greeting @current_user %>
+</div>
+
+<div class="row marketing">
+  <div class="col-md-3">
+    <%= link to: user_path(@conn, :edit_profile) do %>
+      <button class="iconbutton">
+        <i class="fa fa-address-card" aria-hidden="true"></i>
+        <p>Profile</p>
+      </button>
+    <%= end %>
+  </div>
+
+  <div class="col-md-3">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <p>Patients</p>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-3">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        <p>Calendar</p></button>
+      </button>
+    </a>
+  </div>
+
+  <div class="col-md-3">
+    <a>
+      <button class="iconbutton">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <p>Messages</p>
+      </button>
+    </a>
+  </div>
+</div>

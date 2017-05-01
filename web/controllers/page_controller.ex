@@ -4,6 +4,8 @@ defmodule Hnet.PageController do
   alias Hnet.Account.Plugs.RestrictAccess
   plug RestrictAccess, [to: :patient] when action in [:patient]
   plug RestrictAccess, [to: :administrator] when action in [:administrator]
+  plug RestrictAccess, [to: :doctor] when action in [:doctor]
+  plug RestrictAccess, [to: :nurse] when action in [:nurse]
 
   def index(conn, _params) do
     user = conn.assigns[:current_user]
@@ -20,5 +22,13 @@ defmodule Hnet.PageController do
 
   def administrator(conn, _params) do
     render conn, "administrator.html"
+  end
+
+  def doctor(conn, _params) do
+    render conn, "doctor.html"
+  end
+
+  def nurse(conn, _params) do
+    render conn, "nurse.html"
   end
 end

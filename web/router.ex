@@ -20,6 +20,8 @@ defmodule Hnet.Router do
     get "/", PageController, :index
     get "/patient", PageController, :patient
     get "/admin", PageController, :administrator
+    get "/doctor", PageController, :doctor
+    get "/nurse", PageController, :nurse
     resources "/hospitals", HospitalController
   end
 
@@ -30,6 +32,8 @@ defmodule Hnet.Router do
     post "/login", AuthController, :login
     post "/logout", AuthController, :logout
     resources "/users", UserController, only: [:index, :show, :delete]
+    get "/profile", UserController, :edit_profile
+    put "/profile", UserController, :update_profile
   end
 
   scope "/registration", Hnet.Account do

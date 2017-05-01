@@ -30,19 +30,29 @@ defmodule Hnet.Account.Plugs.RestrictAccess do
   import Hnet.Router.Helpers
   
   def init(opts) do
-    [to: Keyword.get(opts, :to, []) |> List.wrap,
-     redirect: Keyword.get(opts, :redirect, nil)]
+    if Keyword.has_key?(opts, :to) == Keyword.has_key?(opts, :from) do
+      raise ArgumentError, message: "At least one and only one of :to and :from should be provided as argument."
+    end
+    parse_account_type_opts(to: Keyword.get(opts, :to), from: Keyword.get(opts, :from))
+    |> Map.put(:redirect, Keyword.get(opts, :redirect))
+  end
+
+  defp parse_account_type_opts(to: types, from: nil) do
+    %{method: :to, types: List.wrap(types)}
+  end
+  defp parse_account_type_opts(to: nil, from: types) do
+    %{method: :from, types: List.wrap(types)}
   end
 
   def call(conn, opts) do
     case conn.assigns[:current_user] do
-      nil -> block_access(conn, nil, opts)
+      nil -> check_account_type(conn, :anonymous, opts)
       user -> check_account_type(conn, user.account_type, opts)
     end
   end
 
   defp check_account_type(conn, account_type, opts) do
-    if account_type in opts[:to] do
+    if (account_type in opts.types) == (opts.method == :to) do
       conn
     else
       block_access(conn, account_type, opts)
@@ -52,16 +62,28 @@ defmodule Hnet.Account.Plugs.RestrictAccess do
   defp block_access(conn, account_type, opts) do
     conn
     |> put_flash(:error, message_for_account_type(account_type, opts))
-    |> redirect(to: opts[:redirect] || auth_path(conn, :signin, next: conn.request_path))
+    |> redirect(to: opts.redirect || auth_path(conn, :signin, next: conn.request_path))
     |> halt
   end
 
-  defp message_for_account_type(nil, opts), do: "You're not logged in. #{signin_message(opts)}"
+  defp message_for_account_type(:anonymous, opts), do: "You're not logged in. #{signin_message(opts.method, opts.types)}"
   defp message_for_account_type(account_type, opts) do
-    "You're logged in as #{account_type}, but you're not authorized to view this page. #{signin_message(opts)}"
+    "You're logged in as #{account_type}, but you're not authorized to view this page. #{signin_message(opts.method, opts.types)}"
   end
 
-  defp signin_message(opts) do
-    "Please sign in as #{Enum.join(opts[:to], " or ")} to view this page."
+  defp signin_message(:to, types) do
+    if :anonymous in types do
+      "Please log out to view this page."
+    else
+      "Please sign in as #{Enum.join(types, " or ")} to view this page."
+    end
+  end
+
+  defp signin_message(:from, types) do
+    if :anonymous in types do
+      "Please log in to view this page."
+    else
+      "Please sign in as an account other than #{Enum.join(types, " or ")} to view this page."
+    end
   end
 end

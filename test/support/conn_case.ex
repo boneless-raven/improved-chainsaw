@@ -29,6 +29,35 @@ defmodule Hnet.ConnCase do
 
       # The default endpoint for testing
       @endpoint Hnet.Endpoint
+
+      def login(conn, user_id) do
+        conn
+        |> bypass_through(Hnet.Router, [:browser])
+        |> get("/")
+        |> put_session(:current_user_id, user_id)
+        |> send_resp(:ok, "")
+        |> recycle
+      end
+
+      def assert_conn(conn, :success, content) do
+        assert html_response(conn, 200) =~ content
+        conn
+      end
+
+      def assert_conn(conn, :redirect, destination) do
+        assert redirected_to(conn) == destination
+        conn
+      end
+
+      def assert_conn(conn, :redirect, :similar_to, destination) do
+        assert redirected_to(conn) =~ destination
+        conn
+      end
+
+      def assert_conn(conn, statement) do
+        statement.(conn)
+        conn
+      end
     end
   end
 

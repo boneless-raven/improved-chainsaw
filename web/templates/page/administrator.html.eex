@@ -4,7 +4,16 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
+    <%= link to: user_path(@conn, :edit_profile) do %>
+      <button class="iconbutton">
+        <i class="fa fa-address-card" aria-hidden="true"></i>
+        <p>Profile</p>
+      </button>
+    <%= end %>
+  </div>
+
+  <div class="col-md-3">
     <a>
       <button class="iconbutton">
         <i class="fa fa-tasks" aria-hidden="true"></i>
@@ -13,16 +22,16 @@
     </a>
   </div>
 
-  <div class="col-md-4">
-    <a href="<%= registration_path(@conn, :index) %>">
+  <div class="col-md-3">
+    <%= link to: registration_path(@conn, :index) do %>
       <button class="iconbutton">
         <i class="fa fa-users" aria-hidden="true"></i>
         <p>Add Account</p>
       </button>
-    </a>
+    <%= end %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <a>
       <button class="iconbutton">
         <i class="fa fa-envelope-o" aria-hidden="true"></i>

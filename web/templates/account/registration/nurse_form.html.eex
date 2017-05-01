@@ -1,7 +1,0 @@
-<%= inputs_for @u, :nurse, fn n -> %>
-  <div class="form-group">
-    <%= label n, :hospital_id, class: "control-label" %>
-    <%= select n, :hospital_id, Enum.map(@hospitals, &{&1.name, &1.id}), class: "form-control" %>
-    <%= error_tag n, :hospital_id %>
-  </div>
-<%= end %>

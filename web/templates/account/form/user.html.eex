@@ -1,0 +1,12 @@
+<%= form_group @form, :first_name %>
+<%= form_group @form, :last_name %>
+
+<div class="form-group">
+  <%= label @form, :gender, class: "control-label" %>
+  <%= select @form, :gender, ["Male": :male, "Female": :female], prompt: "Please specify your biological gender (for medical reasons).", class: "form-control" %>
+  <%= error_tag @form, :gender %>
+</div>
+
+<%= form_group @form, :email %>
+<%= form_group @form, :phone %>
+<%= form_group @form, :address %>
