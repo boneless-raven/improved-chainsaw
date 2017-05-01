@@ -66,12 +66,24 @@ defmodule Hnet.Account.Plugs.RestrictAccess do
     |> halt
   end
 
-  defp message_for_account_type(:anonymous, opts), do: "You're not logged in. #{signin_message(opts)}"
+  defp message_for_account_type(:anonymous, opts), do: "You're not logged in. #{signin_message(opts.method, opts.types)}"
   defp message_for_account_type(account_type, opts) do
-    "You're logged in as #{account_type}, but you're not authorized to view this page. #{signin_message(opts)}"
+    "You're logged in as #{account_type}, but you're not authorized to view this page. #{signin_message(opts.method, opts.types)}"
   end
 
-  defp signin_message(opts) do
-    "Please sign in as #{Enum.join(opts.types, " or ")} to view this page."
+  defp signin_message(:to, types) do
+    if :anonymous in types do
+      "Please log out to view this page."
+    else
+      "Please sign in as #{Enum.join(types, " or ")} to view this page."
+    end
+  end
+
+  defp signin_message(:from, types) do
+    if :anonymous in types do
+      "Please log in to view this page."
+    else
+      "Please sign in as an account other than #{Enum.join(types, " or ")} to view this page."
+    end
   end
 end
