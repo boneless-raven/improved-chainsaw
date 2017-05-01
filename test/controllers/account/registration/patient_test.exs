@@ -1,4 +1,4 @@
-defmodule Hnet.RegistrationController.PatientTest do
+defmodule Hnet.Registration.PatientTest do
   use Hnet.ConnCase
 
   alias Hnet.Account.User
