@@ -9,7 +9,7 @@ defmodule Hnet.Account.Profile.UserTest do
                   first_name: "Jamie", last_name: "Lannister", email: "jamie.lannister@mail.com"}
   @empty_params %{address: "", phone: "", gender: "", first_name: "", last_name: "", email: ""}
   @forbidden_attrs %{patient_id: 0, administrator_id: 0, doctor_id: 0, nurse_id: 0,
-                     password_hash: "hash", account_type: :administrator}
+                     password_hash: "hash", account_type: :administrator, id: 0}
 
   setup do
     {:ok, user: create_default_user()}
