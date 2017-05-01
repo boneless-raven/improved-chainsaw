@@ -25,7 +25,7 @@ defmodule Hnet.DefaultModels do
     query = from h in Hospital, select: h.id, limit: 1
     hospital_id = List.first(Repo.all(query))
     %User{address: "Baelor's Sept", email: "high.sparrow@mail.com", first_name: "高",
-          last_name: "麻雀", gender: "male", phone: "1230984576", username: username,
+          last_name: "麻雀", gender: "male", phone: "1890235467", username: username,
           account_type: :doctor, password: "phoenix",
           password_hash: "$2b$12$EoAdWD1LeOKTdB67l5KLBO1hM9dkTy.dsSue8Ss9o/spzZs4g7Sr2"}
     |> change
@@ -33,11 +33,23 @@ defmodule Hnet.DefaultModels do
     |> Repo.insert!
   end
 
+  def create_default_nurse do
+    query = from h in Hospital, select: h.id, limit: 1
+    hospital_id = Repo.one(query)
+    %User{address: "High Garden.", email: "margaery.tyrell@mail.com", first_name: "margaery",
+          last_name: "Tyrell", gender: "female", phone: "0192384756", username: "martyrel",
+          account_type: :nurse, password: "phoenix",
+          password_hash: "$2b$12$EoAdWD1LeOKTdB67l5KLBO1hM9dkTy.dsSue8Ss9o/spzZs4g7Sr2"}
+    |> change
+    |> put_assoc(:nurse, %{hospital_id: hospital_id})
+    |> Repo.insert!
+  end
+
   def create_default_administrator do
     query = from h in Hospital, select: h.id, limit: 1
     hospital_id = List.first(Repo.all(query))
     %User{address: "Casterly Rock", email: "tyrion.lannister@mail.com", first_name: "Tyrion",
-          last_name: "Lannister", gender: "male", phone: "1029384756", username: "tyrlan",
+          last_name: "Lannister", gender: "male", phone: "1230897645", username: "tyrlan",
           account_type: :administrator, password: "phoenix",
           password_hash: "$2b$12$EoAdWD1LeOKTdB67l5KLBO1hM9dkTy.dsSue8Ss9o/spzZs4g7Sr2"}
     |> change

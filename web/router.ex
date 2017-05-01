@@ -20,6 +20,8 @@ defmodule Hnet.Router do
     get "/", PageController, :index
     get "/patient", PageController, :patient
     get "/admin", PageController, :administrator
+    get "/doctor", PageController, :doctor
+    get "/nurse", PageController, :nurse
     resources "/hospitals", HospitalController
   end
 
