@@ -27,13 +27,6 @@ defmodule Hnet.Account.Profile do
     |> validate_required(@user_fields)
     |> validate_email(:email)
     |> validate_phone(:phone)
-    |> delete_change(:username)
-    |> delete_change(:account_type)
-    |> delete_change(:patient_id)
-    |> delete_change(:doctor_id)
-    |> delete_change(:nurse_id)
-    |> delete_change(:administrator_id)
-    |> delete_change(:password_hash)
     |> prepare_changes(fn changeset ->
          changeset
          |> trim(:email)
@@ -52,7 +45,6 @@ defmodule Hnet.Account.Profile do
     |> cast(patient_params, @required_patient_fields ++ @optional_patient_fields)
     |> validate_required(@required_patient_fields)
     |> assoc_constraint(:primary_doctor)
-    |> delete_change(:user_id)
     
     # Associate the patient changeset with the user changeset.
     update_user(user, user_params)

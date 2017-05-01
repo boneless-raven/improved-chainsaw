@@ -1,4 +1,4 @@
-defmodule Hnet.Registration.UserTest do
+defmodule Hnet.Account.Registration.UserTest do
   use Hnet.ModelCase
 
   alias Hnet.Account.Registration

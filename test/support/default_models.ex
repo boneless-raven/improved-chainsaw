@@ -13,11 +13,19 @@ defmodule Hnet.DefaultModels do
     Repo.insert!(record)
   end
 
-  def create_default_doctor do
+  def create_default_user(username \\ "cerlann") do
+    %User{address: "The Red Keep, King's Landing.'", email: "cersei.lannister@mail.com", 
+          first_name: "Cersei", last_name: "Lannister", gender: "female", phone: "1230984576", 
+          username: username, account_type: :doctor, password: "phoenix",
+          password_hash: "$2b$12$EoAdWD1LeOKTdB67l5KLBO1hM9dkTy.dsSue8Ss9o/spzZs4g7Sr2"}
+    |> Repo.insert!
+  end
+
+  def create_default_doctor(username \\ "hsparrow") do
     query = from h in Hospital, select: h.id, limit: 1
     hospital_id = List.first(Repo.all(query))
     %User{address: "Baelor's Sept", email: "high.sparrow@mail.com", first_name: "高",
-          last_name: "麻雀", gender: "male", phone: "1230984576", username: "hsparrow",
+          last_name: "麻雀", gender: "male", phone: "1230984576", username: username,
           account_type: :doctor, password: "phoenix",
           password_hash: "$2b$12$EoAdWD1LeOKTdB67l5KLBO1hM9dkTy.dsSue8Ss9o/spzZs4g7Sr2"}
     |> change

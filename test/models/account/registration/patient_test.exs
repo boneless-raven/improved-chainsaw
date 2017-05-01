@@ -1,4 +1,4 @@
-defmodule Hnet.Registration.PatientTest do
+defmodule Hnet.Account.Registration.PatientTest do
   use Hnet.ModelCase
 
   import Hnet.DefaultModels

@@ -1,24 +1,23 @@
-defmodule Hnet.Registration.AdministratorTest do
+defmodule Hnet.Account.Registration.DoctorTest do
   use Hnet.ModelCase
 
   import Hnet.DefaultModels
   alias Hnet.Account.Registration
 
-  @valid_attrs %{address: "Winterfell", email: "edward.stark@mail.com", gender: "male", 
-                 first_name: "Edward", last_name: "Stark", phone: "1230984576",
-                 username: "edstark", password: "phoenix", password_confirmation: "phoenix", 
-                 administrator: %{hospital_id: nil}}
+  @valid_attrs %{address: "Winterfell", email: "catelyn.stark@mail.com", gender: "female", 
+                 first_name: "Catelyn", last_name: "Stark", phone: "1230984576",
+                 username: "catstark", password: "phoenix", password_confirmation: "phoenix", 
+                 doctor: %{hospital_id: nil}}
   @empty_attrs %{}
 
   setup do
-    hospital = create_default_hospital()
-    {:ok, hospital: hospital}
+    {:ok, hospital: create_default_hospital()}
   end
 
   test "changeset with valid attributes", %{hospital: hospital} do
     hospital_id = hospital.id
     params = set_hospital_id(@valid_attrs, hospital_id)
-    changeset = Registration.new_administrator(params)
+    changeset = Registration.new_doctor(params)
 
     assert {:ok, user} = Repo.insert(changeset)
     assert user.first_name == @valid_attrs.first_name
@@ -27,24 +26,24 @@ defmodule Hnet.Registration.AdministratorTest do
     assert user.email == @valid_attrs.email
     assert user.username == @valid_attrs.username
     assert user.address == @valid_attrs.address
-    assert user.account_type == :administrator
-    assert user.gender == :male
+    assert user.account_type == :doctor
+    assert user.gender == :female
     assert user.password_hash
-    administrator = Repo.preload user.administrator, :hospital
-    assert administrator.hospital.id == hospital_id
+    doctor = Repo.preload user.doctor, :hospital
+    assert doctor.hospital.id == hospital_id
   end
 
   test "changeset with invalid hospital id", %{hospital: hospital} do
     hospital_id = hospital.id
     assert {:error, changeset} = set_hospital_id(@valid_attrs, hospital_id + 1)
-    |> Registration.new_administrator
+    |> Registration.new_doctor
     |> Repo.insert
-    administrator_changeset = get_change(changeset, :administrator)
-    assert Keyword.has_key?(administrator_changeset.errors, :hospital)
+    doctor_changeset = get_change(changeset, :doctor)
+    assert Keyword.has_key?(doctor_changeset.errors, :hospital)
   end
 
   test "changeset with empty attributes" do
-    changeset = Registration.new_administrator(@empty_attrs)
+    changeset = Registration.new_doctor(@empty_attrs)
     refute changeset.valid?
     assert Keyword.has_key?(changeset.errors, :phone)
     assert Keyword.has_key?(changeset.errors, :email)
@@ -54,12 +53,12 @@ defmodule Hnet.Registration.AdministratorTest do
     assert Keyword.has_key?(changeset.errors, :last_name)
     assert Keyword.has_key?(changeset.errors, :username)
     assert Keyword.has_key?(changeset.errors, :password)
-    administrator_changeset = get_change(changeset, :administrator)
-    assert Keyword.has_key?(administrator_changeset.errors, :hospital_id)
+    doctor_changeset = get_change(changeset, :doctor)
+    assert Keyword.has_key?(doctor_changeset.errors, :hospital_id)
   end
 
   defp set_hospital_id(attrs, hospital_id) do
-    Map.update!(attrs, :administrator, fn d ->
+    Map.update!(attrs, :doctor, fn d ->
       %{d | hospital_id: hospital_id}
     end)
   end
