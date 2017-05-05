@@ -8,8 +8,8 @@ defmodule Hnet.Account.Profile.PatientTest do
   @valid_params %{address: "Somewhere", phone: "1230984576", gender: "female",
                   first_name: "Arya", last_name: "Stark", email: "arya.stark@mail.com",
                   patient: %{primary_doctor_id: nil,
-                             proof_of_insurance: "Death is whimsical today.",
-                             emergency_contact_name: "God of a thousand faces",
+                             proof_of_insurance: "Valar Morghulis",
+                             emergency_contact_name: "Jaqen H'gar",
                              emergency_contact_phone: "0128934567"}}
   @empty_params %{patient: %{
     primary_doctor_id: "", proof_of_insurance: "",
